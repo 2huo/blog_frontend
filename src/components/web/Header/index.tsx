@@ -1,5 +1,4 @@
-import React from 'react';
-import useBus from '@/hooks/useBus';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './header.css';
 
@@ -26,6 +25,11 @@ const Header = (): JSX.Element => {
       label: 'ABOUT',
     },
   ];
+
+  // useEffect(() => {
+  //   console.log('header reload');
+  // }, []);
+
   return (
     <>
       <div className="flex px-10 bg-white bg-opacity-70 z-20 absolute w-full top-0">

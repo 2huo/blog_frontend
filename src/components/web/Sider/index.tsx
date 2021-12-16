@@ -1,12 +1,24 @@
 import React from 'react';
-import { useListener } from '@/hooks/useBus';
 
-const Sider = (): JSX.Element => {
-  useListener('click', (e) => {
-    console.log(e);
-  });
+interface ISiderProps {
+  siderContent?: JSX.Element | string;
+}
 
-  return <div>Sider</div>;
+const Sider: React.FC<ISiderProps> = (props) => {
+  return (
+    <div
+      style={{
+        maxWidth: `300px`,
+        width: 'max-content',
+        position: 'fixed',
+        top: '100px',
+        left: '10px',
+        zIndex: '1',
+      }}
+    >
+      {props.siderContent}
+    </div>
+  );
 };
 
 export default Sider;

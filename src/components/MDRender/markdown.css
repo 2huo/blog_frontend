@@ -42,7 +42,7 @@
 #write {
   line-height: 1.68;
   -webkit-text-size-adjust: 100%;
-  max-width: 860px;
+  /* max-width: 860px; */
   margin: 0px auto;
   /* padding: 1.6rem 3.2rem; */
   /* font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Arial,
@@ -60,7 +60,6 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  
 }
 #write > *:first-child {
   margin-top: 0 !important;
@@ -177,7 +176,7 @@
   padding: 0 0.2rem;
 }
 #write code span {
-  font-family: consolas, "Courier New", monospace;
+  font-family: consolas, 'Courier New', monospace;
   font-weight: bold;
 }
 /* #write code:hover:before{
@@ -313,7 +312,7 @@
   line-height: 1.6;
 }
 
-#write .hljs{
+#write .hljs {
   padding: 1rem;
   font-family: monospace;
 }
@@ -350,16 +349,16 @@
   padding-left: 0;
   list-style: none;
 }
-#write ul > li:not([class*="task-list-item"]) {
+#write ul > li:not([class*='task-list-item']) {
   word-wrap: break-all;
   position: relative;
   padding-left: 22px;
 }
-#write ul > li:not([class*="task-list-item"]):before {
+#write ul > li:not([class*='task-list-item']):before {
   position: absolute;
   /* position: relative; */
   top: 2px;
-  content: "•";
+  content: '•';
   color: #3370ff;
   display: inline-block;
   margin-left: -20px;
@@ -369,20 +368,17 @@
   transform: scale(1.25);
   /* font-family: PingFangSC-Regular, PingFang SC; */
 }
-#write
-  ul
-  > li:not([class*="task-list-item"])
-  li:not([class*="task-list-item"])::before {
-  content: "◦";
+#write ul > li:not([class*='task-list-item']) li:not([class*='task-list-item'])::before {
+  content: '◦';
   transform: scale(1);
   font-weight: 700;
 }
 #write
   ul
-  > li:not([class*="task-list-item"])
-  li:not([class*="task-list-item"])
-  li:not([class*="task-list-item"])::before {
-  content: "▪";
+  > li:not([class*='task-list-item'])
+  li:not([class*='task-list-item'])
+  li:not([class*='task-list-item'])::before {
+  content: '▪';
   transform: scale(1.25);
   font-weight: normal;
 }
@@ -392,13 +388,13 @@
   padding-left: 22px;
   list-style: none;
 }
-#write ol > li:not([class*="task-list-item"]) {
+#write ol > li:not([class*='task-list-item']) {
   word-wrap: break-all;
   padding-left: 0px;
   position: relative;
 }
-#write ol > li:not([class*="task-list-item"]):before {
-  content: counter(ol_counter) ".";
+#write ol > li:not([class*='task-list-item']):before {
+  content: counter(ol_counter) '.';
   counter-increment: ol_counter;
   color: #3370ff;
   position: absolute;
@@ -458,7 +454,7 @@
   border-color: #3370ff;
 }
 #write .task-list-item > input[checked]::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 20%;
   left: 50%;
@@ -468,7 +464,7 @@
   background: #3370ff;
 }
 #write .task-list-item > input[checked]::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 46%;
   left: 25%;

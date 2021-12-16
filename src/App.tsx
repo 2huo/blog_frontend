@@ -1,10 +1,13 @@
 import './App.css';
 import React, { Suspense } from 'react';
 import { Provider as EventProvider } from '@/hooks/useBus';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import routes, { IRoutes } from '@/routes';
+import { BackTop } from 'antd';
+import { UpCircleOutlined } from '@ant-design/icons';
 
 const App: React.FC = () => {
+  // 根据routes表渲染
   function renderRoutes(routes: IRoutes[], contextPath: string): React.ReactNode {
     const childrens: React.ReactElement[] = [];
     function renderRoute(item: IRoutes, routeContextPath: string) {
@@ -14,7 +17,7 @@ const App: React.FC = () => {
       const childrenRoutes = item.childRoutes ? renderRoutes(item.childRoutes, itemPath) : null;
 
       // 没有传递props
-      // 目前来看没有传递props的需求
+      // 目前来看没有传递props的必要
       const children = childrenRoutes ? (
         <Route
           path={`${itemPath}*`}
@@ -35,9 +38,17 @@ const App: React.FC = () => {
   return (
     <Router>
       <EventProvider>
-        <Suspense fallback="loading...">
-          <div className="App">{appRoutes}</div>
-        </Suspense>
+        <div className="App">
+          {/* <Suspense fallback="loading..."> */}
+          {appRoutes}
+          {/* </Suspense> */}
+          {/* 回到顶部 */}
+          <BackTop>
+            <div className="text-4xl">
+              <UpCircleOutlined />
+            </div>
+          </BackTop>
+        </div>
       </EventProvider>
     </Router>
   );
