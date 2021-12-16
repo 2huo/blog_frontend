@@ -3,10 +3,12 @@ import query from '@/utils/query';
 import { IArticle } from './types';
 import { Skeleton } from 'antd';
 import Card from './Card';
+import useBus from '@/hooks/useBus';
 
 function ArticleList() {
   const [articleList, setArticleList] = useState<IArticle[]>([]);
   const [loading, setLoading] = useState(true);
+  const bus = useBus();
 
   useEffect(() => {
     setLoading(true);
@@ -14,6 +16,7 @@ function ArticleList() {
       res.data.code === 'ok' && setArticleList(res.data.data);
       setLoading(false);
     });
+    bus.emit('siderShow', { show: false, content: null });
   }, []);
 
   return (

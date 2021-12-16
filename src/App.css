@@ -3,7 +3,10 @@
 .ant-layout,
 .ant-layout-footer,
 .ant-layout-content,
-.ant-layout-header,
+.ant-layout-header {
+  @apply bg-white;
+}
+
 .ant-layout-sider {
-  background-color: white;
+  @apply bg-gray-100;
 }

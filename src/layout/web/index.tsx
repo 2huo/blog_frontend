@@ -1,5 +1,5 @@
 import React, { useState, Suspense } from 'react';
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 import { useListener } from '@/hooks/useBus';
 import { RightCircleOutlined, LeftCircleOutlined } from '@ant-design/icons';
 
@@ -35,17 +35,29 @@ const WebLayout: React.FC = (props) => {
         collapsedWidth={0}
         collapsed={!collapsed}
         trigger={null}
-        className="relative"
+        style={{
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          zIndex: 50,
+        }}
       >
         {collapsed ? <Sider siderContent={siderContent} /> : null}
         <SiderTrigger></SiderTrigger>
       </Layout.Sider>
-      <Layout>
+      <Layout style={{ marginLeft: collapsed ? '300px' : '0', transition: 'all 0.3s' }}>
         <Layout.Header>
           <Header />
         </Layout.Header>
         <Layout.Content>
-          <Suspense fallback={<div>loading content</div>}>
+          <Suspense
+            fallback={
+              <div className="flex justify-center mt-4">
+                <Spin />
+              </div>
+            }
+          >
             <div className="mx-auto mt-3 max-w-4xl">{props.children}</div>
           </Suspense>
         </Layout.Content>

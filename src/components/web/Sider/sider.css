@@ -1,0 +1,18 @@
+.sideMenuLink {
+  --linkHoverDis: 0.4rem;
+  @apply relative select-none text-gray-700 hover:text-gray-700 my-4 px-6 py-3;
+}
+.sideMenuLink::before,
+.sideMenuLink::after {
+  content: '';
+  transition: all 400ms;
+  @apply absolute w-full h-full top-0 left-0 opacity-0 border-2 border-solid border-gray-700;
+}
+.sideMenuLink:hover::before {
+  opacity: 1;
+  transform: translate(var(--linkHoverDis), var(--linkHoverDis));
+}
+.sideMenuLink:hover::after {
+  opacity: 1;
+  transform: translate(-var(--linkHoverDis), -var(--linkHoverDis));
+}

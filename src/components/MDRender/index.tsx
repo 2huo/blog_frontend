@@ -11,6 +11,7 @@ import slug from 'rehype-slug';
 import { Element as hastElement } from 'hast';
 import useBus from '@/hooks/useBus';
 import { Anchor } from 'antd';
+import { SmileOutlined } from '@ant-design/icons';
 
 import './highlight.css';
 import './markdown.css';
@@ -47,9 +48,14 @@ export default function MDRender(props: IMDRenderProps) {
       children.push(renderChildren(item));
     });
     return (
-      <Anchor affix={false} showInkInFixed={true}>
-        {children}
-      </Anchor>
+      <>
+        <div className=" text-center text-2xl mt-4 mb-2">
+          <SmileOutlined rotate={180} />
+        </div>
+        <Anchor affix={false} showInkInFixed={true}>
+          {children}
+        </Anchor>
+      </>
     );
   }
 
@@ -79,6 +85,7 @@ export default function MDRender(props: IMDRenderProps) {
           remarkPlugins={[remarkGfm, remarkGemoji]}
           rehypePlugins={[rehypeHighlight, slug]}
           components={{
+            // 渲染侧边栏的toc
             h1: ({ node, ...props }) => {
               headers.push([getHeader(node)]);
               return <h1 {...props}></h1>;
