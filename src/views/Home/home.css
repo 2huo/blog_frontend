@@ -1,0 +1,3 @@
+.links a {
+  @apply text-black ml-4 text-xl;
+}

@@ -11,7 +11,6 @@ const WebLayout: React.FC = (props) => {
   const [collapsed, setCollapsed] = useState(false);
   const [siderContent, setSiderContent] = useState<JSX.Element | string>();
   useListener<{ show: boolean; content: JSX.Element | string }>('siderShow', (e) => {
-    console.log('siderShow', e.show);
     setCollapsed(e.show);
     setSiderContent(e.content);
   });
@@ -60,7 +59,7 @@ const WebLayout: React.FC = (props) => {
               </div>
             }
           >
-            <div className="mx-auto mt-3 max-w-4xl">{props.children}</div>
+            <div className=" lg:mx-auto mt-3 max-w-4xl  sm:mx-8">{props.children}</div>
           </Suspense>
         </Layout.Content>
       </Layout>
