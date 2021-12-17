@@ -1,5 +1,5 @@
 import './App.css';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Provider as EventProvider } from '@/hooks/useBus';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import routes, { IRoutes } from '@/routes';
@@ -39,9 +39,7 @@ const App: React.FC = () => {
     <Router>
       <EventProvider>
         <div className="App">
-          {/* <Suspense fallback="loading..."> */}
           {appRoutes}
-          {/* </Suspense> */}
           {/* 回到顶部 */}
           <BackTop>
             <div className="text-4xl">

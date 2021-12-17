@@ -6,21 +6,34 @@ import { Breadcrumb, Skeleton } from 'antd';
 import { FolderOpenOutlined } from '@ant-design/icons';
 import query from '@/utils/query';
 import './article.css';
+import useBus from '@/hooks/useBus';
 
 const Article: React.FC = () => {
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
   const { id: articleId } = useParams();
   const [loading, setLoading] = useState(true);
+  const bus = useBus();
 
   useEffect(() => {
     setLoading(true);
-    query.get('/article/get_article_content/' + articleId).then((res) => {
-      const data = res.data.code === 'ok' ? res.data.data : null;
-      data ? (setContent(data.content), setTitle(data.title)) : null;
-      setLoading(false);
-    });
+    query
+      .get('/article/get_article_content/' + articleId)
+      .then((res) => {
+        const data = res.data.code === 'ok' ? res.data.data : null;
+        data ? (setContent(data.content), setTitle(data.title)) : null;
+        setLoading(false);
+        bus.emit('pageTitle', data.title);
+      })
+      .catch(() => {
+        setLoading(false);
+        setContent('');
+      });
   }, [articleId]);
+
+  const getToc = (content: JSX.Element) => {
+    bus.emit('siderShow', { show: true, content: content });
+  };
 
   return (
     <div className="article">
@@ -44,7 +57,7 @@ const Article: React.FC = () => {
       </Breadcrumb>
       <br />
       <Skeleton loading={loading} active>
-        <MDRender content={content}></MDRender>
+        <MDRender content={content} getToc={getToc}></MDRender>
       </Skeleton>
     </div>
   );

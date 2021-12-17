@@ -11,6 +11,7 @@ const WebLayout: React.FC = (props) => {
   const [collapsed, setCollapsed] = useState(false);
   const [siderContent, setSiderContent] = useState<JSX.Element | string>();
   useListener<{ show: boolean; content: JSX.Element | string }>('siderShow', (e) => {
+    console.log('siderShow', e.show);
     setCollapsed(e.show);
     setSiderContent(e.content);
   });
@@ -44,6 +45,7 @@ const WebLayout: React.FC = (props) => {
         }}
       >
         {collapsed ? <Sider siderContent={siderContent} /> : null}
+        <Footer />
         <SiderTrigger></SiderTrigger>
       </Layout.Sider>
       <Layout style={{ marginLeft: collapsed ? '300px' : '0', transition: 'all 0.3s' }}>
@@ -61,9 +63,6 @@ const WebLayout: React.FC = (props) => {
             <div className="mx-auto mt-3 max-w-4xl">{props.children}</div>
           </Suspense>
         </Layout.Content>
-        <Layout.Footer>
-          <Footer />
-        </Layout.Footer>
       </Layout>
     </Layout>
   );

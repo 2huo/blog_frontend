@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TopicList() {
+function TopicList(): JSX.Element {
   return <div>TopicList</div>;
 }
 

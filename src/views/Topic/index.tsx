@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Topic() {
+function Topic(): JSX.Element {
   return <div>Topic</div>;
 }
 

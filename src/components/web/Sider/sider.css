@@ -1,6 +1,6 @@
 .sideMenuLink {
   --linkHoverDis: 0.4rem;
-  @apply relative select-none text-gray-700 hover:text-gray-700 my-4 px-6 py-3;
+  @apply relative select-none text-gray-700 hover:text-gray-700 my-2 px-6 py-3;
 }
 .sideMenuLink::before,
 .sideMenuLink::after {

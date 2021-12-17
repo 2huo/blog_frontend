@@ -21,7 +21,7 @@ const Sider: React.FC<ISiderProps> = (props) => {
           <ul className="flex justify-center flex-col items-center">
             {menuConfig.linkList.map((item) => {
               return (
-                <Link key={item.label} to={item.to} className=" mt-4 sideMenuLink">
+                <Link key={item.label} to={item.to} className="sideMenuLink">
                   <li className="">{item.label}</li>
                 </Link>
               );

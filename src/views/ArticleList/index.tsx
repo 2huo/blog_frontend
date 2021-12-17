@@ -5,7 +5,7 @@ import { Skeleton } from 'antd';
 import Card from './Card';
 import useBus from '@/hooks/useBus';
 
-function ArticleList() {
+function ArticleList(): JSX.Element {
   const [articleList, setArticleList] = useState<IArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const bus = useBus();
@@ -17,6 +17,7 @@ function ArticleList() {
       setLoading(false);
     });
     bus.emit('siderShow', { show: false, content: null });
+    bus.emit('pageTitle', 'Articles');
   }, []);
 
   return (

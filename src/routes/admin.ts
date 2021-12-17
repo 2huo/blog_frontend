@@ -1,4 +1,3 @@
-import { lazy } from 'react';
 import AdminLayout from '@/layout/admin';
 
 export default {

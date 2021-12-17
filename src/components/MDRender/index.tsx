@@ -9,8 +9,7 @@ import rehypeHighlight from 'rehype-highlight';
 // 给head添加id
 import slug from 'rehype-slug';
 import { Element as hastElement } from 'hast';
-import useBus from '@/hooks/useBus';
-import { Anchor } from 'antd';
+import { Anchor, Empty } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 
 import './highlight.css';
@@ -18,6 +17,7 @@ import './markdown.css';
 
 interface IMDRenderProps {
   content: string;
+  getToc?: (content: JSX.Element) => void;
 }
 
 interface IHeader {
@@ -25,10 +25,9 @@ interface IHeader {
   value?: string;
 }
 
-export default function MDRender(props: IMDRenderProps) {
+export default function MDRender(props: IMDRenderProps): JSX.Element {
   // const [headers, setHeaders] = useState<IHeader[][]>([]);
   const headers: IHeader[][] = [];
-  const bus = useBus();
 
   // 渲染侧边栏
   function renderSider() {
@@ -60,16 +59,17 @@ export default function MDRender(props: IMDRenderProps) {
   }
 
   useEffect(() => {
-    // console.log(headers);
     const sider = renderSider();
-    bus.emit('siderShow', { show: true, content: sider });
+    if (props.getToc) {
+      props.getToc(sider);
+    }
   }, []);
 
   function getHeader(node: hastElement) {
     if (node) {
       const id: string = node.properties ? (node.properties.id as string) : '';
       // 此处很奇怪，node.children[0] 不存在 value 属性
-      const children = node.children[0] as any;
+      const children = node.children[0] as { value?: string };
       const value: string = children?.value as string;
       if (!value) return {};
       return { id, value };
@@ -79,26 +79,30 @@ export default function MDRender(props: IMDRenderProps) {
 
   return (
     <>
-      <div id="write" className=" relative pl-0 pr-4">
-        <ReactMarkdown
-          className="articleDetail"
-          remarkPlugins={[remarkGfm, remarkGemoji]}
-          rehypePlugins={[rehypeHighlight, slug]}
-          components={{
-            // 渲染侧边栏的toc
-            h1: ({ node, ...props }) => {
-              headers.push([getHeader(node)]);
-              return <h1 {...props}></h1>;
-            },
-            h2: ({ node, ...props }) => {
-              headers[headers.length - 1].push(getHeader(node));
-              return <h2 {...props}></h2>;
-            },
-          }}
-        >
-          {props.content}
-        </ReactMarkdown>
-      </div>
+      {props.content !== '' ? (
+        <div id="write" className=" relative pl-0 pr-4">
+          <ReactMarkdown
+            className="articleDetail"
+            remarkPlugins={[remarkGfm, remarkGemoji]}
+            rehypePlugins={[rehypeHighlight, slug]}
+            components={{
+              // 渲染侧边栏的toc
+              h1: ({ node, ...props }) => {
+                headers.push([getHeader(node)]);
+                return <h1 {...props}></h1>;
+              },
+              h2: ({ node, ...props }) => {
+                headers[headers.length - 1].push(getHeader(node));
+                return <h2 {...props}></h2>;
+              },
+            }}
+          >
+            {props.content}
+          </ReactMarkdown>
+        </div>
+      ) : (
+        <Empty description="找不到内容..." />
+      )}
     </>
   );
 }
