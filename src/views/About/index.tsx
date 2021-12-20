@@ -12,6 +12,7 @@ function About(): JSX.Element {
       if (res.data.code === 'ok') {
         setContent(res.data.data);
         bus.emit('siderShow', { show: false, content: null });
+        bus.emit('pageTitle', 'About Me');
       }
     });
   }, []);
