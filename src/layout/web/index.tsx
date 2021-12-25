@@ -2,12 +2,13 @@ import React, { useState, Suspense } from 'react';
 import { Layout, Spin } from 'antd';
 import { useListener } from '@/hooks/useBus';
 import { RightCircleOutlined, LeftCircleOutlined } from '@ant-design/icons';
-
+import './web.css';
+import { Outlet } from 'react-router-dom';
 import Header from '@/components/web/Header';
 import Sider from '@/components/web/Sider';
 import Footer from '@/components/web/Footer';
 
-const WebLayout: React.FC = (props) => {
+const WebLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [siderContent, setSiderContent] = useState<JSX.Element | string>();
   useListener<{ show: boolean; content: JSX.Element | string }>('siderShow', (e) => {
@@ -48,7 +49,7 @@ const WebLayout: React.FC = (props) => {
         <SiderTrigger></SiderTrigger>
       </Layout.Sider>
       <Layout style={{ marginLeft: collapsed ? '300px' : '0', transition: 'all 0.3s' }}>
-        <Layout.Header>
+        <Layout.Header className="web-header">
           <Header />
         </Layout.Header>
         <Layout.Content>
@@ -59,7 +60,9 @@ const WebLayout: React.FC = (props) => {
               </div>
             }
           >
-            <div className=" lg:mx-auto mt-3 max-w-4xl  sm:mx-8">{props.children}</div>
+            <div className="lg:mx-auto mt-3 max-w-4xl  sm:mx-8">
+              <Outlet />
+            </div>
           </Suspense>
         </Layout.Content>
       </Layout>

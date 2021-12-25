@@ -1,6 +1,12 @@
-import React from 'react';
-const WebLayout: React.FC = () => {
-  return <div>admin</div>;
+import React, { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
+
+const AdminLayout: React.FC = () => {
+  return (
+    <Suspense fallback={'loading...'}>
+      <Outlet />
+    </Suspense>
+  );
 };
 
-export default WebLayout;
+export default AdminLayout;

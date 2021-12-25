@@ -1,4 +1,4 @@
-.ant-layout-header {
+.web-header {
   height: 25rem;
   margin: 0;
   padding: 0;
@@ -7,7 +7,7 @@
   @apply bg-center relative text-center items-center flex justify-center;
 }
 
-.ant-layout-header::before {
+.web-header::before {
   content: '';
   @apply absolute left-0 top-0 bg-opacity-20 bg-black z-10 w-full h-full;
 }

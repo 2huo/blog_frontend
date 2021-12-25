@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import menuConfig from '@/public/menu';
 import userConfig from '@/public/config';
 import { useListener } from '@/hooks/useBus';
-import './header.css';
 
 const Header = (): JSX.Element => {
   const [pageTitle, setPageTitle] = useState('HOME');

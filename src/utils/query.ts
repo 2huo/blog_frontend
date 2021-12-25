@@ -4,7 +4,8 @@ import qs from 'qs';
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'https://api.2huo.tech',
+  // baseURL: 'https://api.2huo.tech',
+  baseURL: 'http://localhost:3001',
   timeout: 15000, // 请求超时时间
 });
 
