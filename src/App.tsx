@@ -19,7 +19,7 @@ const App: React.FC = () => {
           <div className="App">
             {appRoutes}
             {/* 回到顶部 */}
-            <BackTop>
+            <BackTop style={{ right: '20px' }}>
               <div className="text-4xl">
                 <UpCircleOutlined />
               </div>
