@@ -1,6 +1,9 @@
 import React from 'react';
-import { Form, Input, Button, message } from 'antd';
-import query from '@/utils/query';
+import { Form, Input, Button } from 'antd';
+import { login } from '@/store/user/actions';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { get } from '@/utils/storage';
 
 interface IForm {
   username: string;
@@ -8,22 +11,21 @@ interface IForm {
 }
 
 const Login: React.FC = () => {
-  const onFinish = (values: IForm) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const submitLogin = (values: IForm) => {
     (async () => {
-      const res = await query.post('admin/login', { ...values });
-      console.log(res);
-      const data = res.data;
-      if (data.code === 'ok') {
-        const token = data.data.token;
-        window.localStorage.setItem('token', token);
-        message.success('登陆成功');
+      await dispatch(login({ ...values }));
+      if (get('userInfo').role === 1) {
+        navigate('/admin/content');
       }
     })();
   };
 
   return (
     <div className=" h-screen w-screen flex items-center justify-center">
-      <Form name="login" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} onFinish={onFinish} autoComplete="off">
+      <Form name="login" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} onFinish={submitLogin} autoComplete="off">
         <Form.Item label="管理员账号" name="username" rules={[{ required: true, message: '请输入账号!' }]}>
           <Input />
         </Form.Item>
