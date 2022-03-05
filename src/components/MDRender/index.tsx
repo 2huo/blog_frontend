@@ -59,8 +59,8 @@ export default function MDRender(props: IMDRenderProps): JSX.Element {
   }
 
   useEffect(() => {
-    const sider = renderSider();
     if (props.getToc) {
+      const sider = renderSider();
       props.getToc(sider);
     }
   }, []);
@@ -101,7 +101,7 @@ export default function MDRender(props: IMDRenderProps): JSX.Element {
           </ReactMarkdown>
         </div>
       ) : (
-        <Empty description="找不到内容..." />
+        <Empty description="没有内容..." />
       )}
     </>
   );

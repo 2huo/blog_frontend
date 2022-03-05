@@ -17,7 +17,7 @@ const Login: React.FC = () => {
   const submitLogin = (values: IForm) => {
     (async () => {
       await dispatch(login({ ...values }));
-      if (get('userInfo').role === 1) {
+      if (get('userInfo').role === '1') {
         navigate('/admin/content');
       }
     })();

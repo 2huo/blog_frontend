@@ -11,7 +11,7 @@ import store from '@/store';
 
 const App: React.FC = () => {
   const appRoutes = renderRoutes(routes, '');
-  console.log(appRoutes);
+  // console.log(appRoutes);
   return (
     <Provider store={store}>
       <Router>

@@ -1,18 +1,17 @@
-export const get = (key: string) => {
+export const get = (key: string): Record<string, string> => {
   const value = localStorage.getItem(key);
-  if (!value) return null;
+  if (!value) return JSON.parse('');
   return value.indexOf('{') === 0 || value.indexOf('[') === 0 ? JSON.parse(value) : value;
 };
 
-export const save = (key: string, value: any) => {
-  const data = typeof value === 'object' ? JSON.stringify(value) : value;
-  localStorage.setItem(key, data);
+export const save = (key: string, value: string): void => {
+  localStorage.setItem(key, value);
 };
 
-export const remove = (key: string) => {
+export const remove = (key: string): void => {
   localStorage.removeItem(key);
 };
 
-export const clear = () => {
+export const clear = (): void => {
   localStorage.clear();
 };

@@ -1,10 +1,10 @@
 import thunk from 'redux-thunk';
-import { compose, createStore, applyMiddleware } from 'redux';
+import { compose, createStore, applyMiddleware, StoreEnhancer } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from './rootReducer';
 
-let storeEnhancers: any;
+let storeEnhancers: StoreEnhancer;
 if (process.env.NODE_ENV === 'production') {
   storeEnhancers = compose(applyMiddleware(thunk));
 } else {
