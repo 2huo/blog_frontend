@@ -71,6 +71,10 @@ const MDWriter: React.FC = () => {
   }
 
   function handleSelectTag(value: string[]) {
+    value = value.filter((item) => {
+      return item.replaceAll(' ', '') != '';
+    });
+    console.log('setSelectTags', value);
     setSelectTags([...value]);
   }
 
