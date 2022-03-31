@@ -15,7 +15,12 @@ export default {
         {
           path: '/article/writeArticle',
           name: 'writeArticle',
-          component: lazy(() => import('@/components/MDWriter')),
+          component: lazy(() => import('@/components/admin/MDWriter')),
+        },
+        {
+          path: '/article/manageArticle',
+          name: 'manageArticle',
+          component: lazy(() => import('@/components/admin/MDWriter')),
         },
       ],
     },

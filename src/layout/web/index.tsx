@@ -7,10 +7,24 @@ import { Outlet } from 'react-router-dom';
 import Header from '@/components/web/Header';
 import Sider from '@/components/web/Sider';
 import Footer from '@/components/web/Footer';
+import { getClientWidth } from '@/utils';
 
 const WebLayout: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, _setCollapsed] = useState(false);
   const [siderContent, setSiderContent] = useState<JSX.Element | string>();
+  const SM = 640;
+  // 判断是否是手机 宽度大于640
+  const setCollapsed = (isShow: boolean) => {
+    if (!isShow) _setCollapsed(false);
+    else {
+      const width = getClientWidth();
+      // console.log(width);
+      if (width && width >= SM) {
+        _setCollapsed(true);
+      }
+    }
+  };
+
   useListener<{ show: boolean; content: JSX.Element | string }>('siderShow', (e) => {
     setCollapsed(e.show);
     setSiderContent(e.content);
@@ -21,11 +35,15 @@ const WebLayout: React.FC = () => {
   }
 
   const SiderTrigger: React.FC = () => {
-    return (
-      <div className="fixed bottom-10 left-5 cursor-pointer text-4xl z-10" onClick={toggleSider}>
-        {collapsed ? <LeftCircleOutlined /> : <RightCircleOutlined />}
-      </div>
-    );
+    const width = getClientWidth();
+    if (width && width >= SM) {
+      return (
+        <div className="fixed bottom-10 left-5 cursor-pointer text-4xl z-10" onClick={toggleSider}>
+          {collapsed ? <LeftCircleOutlined /> : <RightCircleOutlined />}
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
@@ -44,8 +62,12 @@ const WebLayout: React.FC = () => {
           zIndex: 50,
         }}
       >
-        {collapsed ? <Sider siderContent={siderContent} /> : null}
-        <Footer />
+        {collapsed ? (
+          <>
+            <Sider siderContent={siderContent} />
+            <Footer />
+          </>
+        ) : null}
         <SiderTrigger></SiderTrigger>
       </Layout.Sider>
       <Layout style={{ marginLeft: collapsed ? '300px' : '0', transition: 'all 0.3s' }}>
@@ -60,7 +82,7 @@ const WebLayout: React.FC = () => {
               </div>
             }
           >
-            <div className="lg:mx-auto mt-3 max-w-4xl  sm:mx-8">
+            <div className="lg:mx-auto mt-3 max-w-4xl  px-4">
               <Outlet />
             </div>
           </Suspense>

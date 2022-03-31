@@ -5,28 +5,29 @@ let defaultState = {
   role: '0',
 };
 
-const userInfo = get('userInfo');
+const role = get('role');
 
-if (userInfo) {
-  defaultState = { ...defaultState, role: userInfo.role };
+if (role !== '') {
+  defaultState = { ...defaultState, role: role };
 }
 
 interface IAction {
   type: string;
-  payload: { role: string; token: string };
+  payload: { role: string };
 }
 
 export default function UserReducer(state = defaultState, action: IAction): typeof state {
   const { type, payload } = action;
   switch (type) {
     case TYPES.USER_LOGIN: {
-      const { role, token } = payload;
-      save('userInfo', JSON.stringify({ role, token }));
+      const { role } = payload;
+      save('role', role);
       return { ...state, role };
     }
 
     case TYPES.USER_LOGIN_OUT: {
-      remove('userInfo');
+      remove('role');
+      remove('token');
       return { ...state, role: '2' };
     }
 

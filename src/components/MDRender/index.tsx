@@ -38,7 +38,13 @@ export default function MDRender(props: IMDRenderProps): JSX.Element {
       return front ? (
         <Anchor.Link href={`#${front.id}`} title={front.value} key={'h1-' + front.id}>
           {headerList.map((item) => {
-            return <Anchor.Link href={`#${item.id}`} title={item.value} key={'h2-' + item.id}></Anchor.Link>;
+            return (
+              <Anchor.Link
+                href={`#${item.id}`}
+                title={item.value}
+                key={'h2-' + item.id}
+              ></Anchor.Link>
+            );
           })}
         </Anchor.Link>
       ) : null;
@@ -80,11 +86,11 @@ export default function MDRender(props: IMDRenderProps): JSX.Element {
   return (
     <>
       {props.content !== '' ? (
-        <div id="write" className=" relative pl-0 pr-4">
+        <div id="write" className=" relative pl-0 max-h-full">
           <ReactMarkdown
             className="articleDetail"
             remarkPlugins={[remarkGfm, remarkGemoji]}
-            rehypePlugins={[rehypeHighlight, slug]}
+            rehypePlugins={[[rehypeHighlight, { ignoreMissing: true }], slug]}
             components={{
               // 渲染侧边栏的toc
               h1: ({ node, ...props }) => {

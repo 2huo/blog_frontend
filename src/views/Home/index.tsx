@@ -17,11 +17,11 @@ function Home(): JSX.Element {
   });
   return (
     <div className="flex flex-col justify-center items-center">
-      <h2 className="text-3xl text-black mt-10 flex items-center">
+      <h2 className=" text-xl sm:text-3xl text-black mt-10 flex items-center">
         <span className="mr-4">愿你我都能保持对前端的热爱</span>
         <SmileOutlined />
       </h2>
-      <h2 className="text-3xl text-gray-400 mt-5">Keep the love for the front-end</h2>
+      <h2 className="text-xl sm:text-3xl text-gray-400 mt-5">Keep the love for the front-end</h2>
       <div className="links">
         <a href={userConfig.github} target="_blank" rel="noopener noreferrer">
           <GithubOutlined />

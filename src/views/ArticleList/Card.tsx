@@ -6,9 +6,9 @@ import { IArticle } from './types';
 
 const Card: React.FC<IArticle> = (props) => {
   return (
-    <div className="my-6 py-6 border-b-2 border-dashed border-gary-300 hover:border-blue-300">
+    <div className="my-6 py-6 border-b-2 border-dashed border-gary-300 hover:border-blue-300 overflow-x-hidden">
       <Link to={`/article/${props.id}`} className="text-gray-700">
-        <div className=" text-4xl ">{props.title}</div>
+        <div className=" text-4xl truncate whitespace-nowrap">{props.title}</div>
       </Link>
       <div className="my-2">
         <ClockCircleOutlined />

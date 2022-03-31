@@ -3,10 +3,17 @@ import query from '@/utils/query';
 import { message } from 'antd';
 import { Dispatch } from 'redux';
 import { AxiosResponse } from 'axios';
+import { remove } from '@/utils/storage';
 
-export const login = (params: { username: string; password: string }) => {
+export function login(params: {
+  account: string;
+  password: string;
+}): (dispatch: Dispatch) => Promise<AxiosResponse> {
+  remove('role');
+  remove('token');
   return (dispatch: Dispatch): Promise<AxiosResponse> =>
     query.post('admin/login', params).then((res) => {
+      console.log('admin/login', res);
       if (res.data.code === 'ok') {
         dispatch({
           type: TYPES.USER_LOGIN,
@@ -18,8 +25,4 @@ export const login = (params: { username: string; password: string }) => {
       }
       return res;
     });
-};
-
-export const loginout: () => { type: string } = () => ({
-  type: TYPES.USER_LOGIN_OUT,
-});
+}

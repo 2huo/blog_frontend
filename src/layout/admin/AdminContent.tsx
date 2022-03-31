@@ -3,24 +3,33 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/rootReducer';
 import { useNavigate, Outlet } from 'react-router-dom';
-import { SettingOutlined, FolderOutlined, FileOutlined, EditOutlined, FolderAddOutlined } from '@ant-design/icons';
+import {
+  SettingOutlined,
+  FolderOutlined,
+  FileOutlined,
+  EditOutlined,
+  FolderAddOutlined,
+} from '@ant-design/icons';
 const { SubMenu } = Menu;
 
 const AdminContent: React.FC = () => {
   const role = useSelector((state: RootState) => state.user.role);
   const navigate = useNavigate();
   const siderWidth = 200;
-
+  const defaultSelectedKeys = ['manageArticle', 'article'];
   // 未登陆则退出
   useEffect(() => {
-    console.log(role);
+    // console.log(role);
     if (role !== '1') {
       navigate('/admin');
     }
+    // 默认启动时跳转到文章管理页面
+    handleSelect({ keyPath: defaultSelectedKeys });
   }, []);
 
-  const handleClick = (e: { keyPath: string[] }) => {
+  const handleSelect = (e: { keyPath: string[] }) => {
     // console.log(e);
+    // console.log(e.keyPath);
     const path = e.keyPath.reverse().reduce((preSumPath: string, cntPath: string) => {
       return preSumPath + '/' + cntPath;
     }, '');
@@ -31,17 +40,17 @@ const AdminContent: React.FC = () => {
     <Layout>
       <Layout.Sider width={siderWidth}>
         <Menu
-          onClick={handleClick}
+          onSelect={handleSelect}
           style={{ width: siderWidth }}
-          defaultSelectedKeys={['writeArticle']}
+          defaultSelectedKeys={defaultSelectedKeys}
           defaultOpenKeys={['article']}
           mode="inline"
         >
           <SubMenu key="article" icon={<FileOutlined />} title="文章">
+            <Menu.Item key="manageArticle">文章管理</Menu.Item>
             <Menu.Item key="writeArticle" icon={<EditOutlined />}>
               写文章
             </Menu.Item>
-            <Menu.Item key="manageArticle">文章管理</Menu.Item>
           </SubMenu>
           <SubMenu key="topic" icon={<FolderOutlined />} title="主题">
             <Menu.Item key="5">主题1</Menu.Item>
