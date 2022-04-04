@@ -22,6 +22,7 @@ export default function UserReducer(state = defaultState, action: IAction): type
     case TYPES.USER_LOGIN: {
       const { role } = payload;
       save('role', role);
+      // TODO 不应该将role保存在session中，只保存token，如果读取到有token记录，则重新登陆并根据服务端返回的信息重新判断
       return { ...state, role };
     }
 
