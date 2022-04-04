@@ -86,7 +86,7 @@ export default function MDRender(props: IMDRenderProps): JSX.Element {
   return (
     <>
       {props.content !== '' ? (
-        <div id="write" className=" relative pl-0 max-h-full">
+        <div className="write relative pl-0 max-h-full">
           <ReactMarkdown
             className="articleDetail"
             remarkPlugins={[remarkGfm, remarkGemoji]}

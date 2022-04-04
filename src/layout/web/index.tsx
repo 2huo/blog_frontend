@@ -1,6 +1,5 @@
-import React, { useState, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Layout, Spin } from 'antd';
-import { useListener } from '@/hooks/useBus';
 import { RightCircleOutlined, LeftCircleOutlined } from '@ant-design/icons';
 import './web.css';
 import { Outlet } from 'react-router-dom';
@@ -8,30 +7,18 @@ import Header from '@/components/web/Header';
 import Sider from '@/components/web/Sider';
 import Footer from '@/components/web/Footer';
 import { getClientWidth } from '@/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { setSiderStatus } from '@/store/page/actions';
 
 const WebLayout: React.FC = () => {
-  const [collapsed, _setCollapsed] = useState(false);
-  const [siderContent, setSiderContent] = useState<JSX.Element | string>();
+  const dispatch = useDispatch();
+  const isShow = useSelector((state: RootState) => state.page.isShow);
+  const siderContent = useSelector((state: RootState) => state.page.sideContent);
   const SM = 640;
-  // 判断是否是手机 宽度大于640
-  const setCollapsed = (isShow: boolean) => {
-    if (!isShow) _setCollapsed(false);
-    else {
-      const width = getClientWidth();
-      // console.log(width);
-      if (width && width >= SM) {
-        _setCollapsed(true);
-      }
-    }
-  };
-
-  useListener<{ show: boolean; content: JSX.Element | string }>('siderShow', (e) => {
-    setCollapsed(e.show);
-    setSiderContent(e.content);
-  });
 
   function toggleSider() {
-    setCollapsed(!collapsed);
+    dispatch(setSiderStatus({ isShow: !isShow }));
   }
 
   const SiderTrigger: React.FC = () => {
@@ -39,7 +26,7 @@ const WebLayout: React.FC = () => {
     if (width && width >= SM) {
       return (
         <div className="fixed bottom-10 left-5 cursor-pointer text-4xl z-10" onClick={toggleSider}>
-          {collapsed ? <LeftCircleOutlined /> : <RightCircleOutlined />}
+          {isShow ? <LeftCircleOutlined /> : <RightCircleOutlined />}
         </div>
       );
     }
@@ -52,7 +39,7 @@ const WebLayout: React.FC = () => {
         collapsible
         width={300}
         collapsedWidth={0}
-        collapsed={!collapsed}
+        collapsed={!isShow}
         trigger={null}
         style={{
           overflow: 'auto',
@@ -62,7 +49,7 @@ const WebLayout: React.FC = () => {
           zIndex: 50,
         }}
       >
-        {collapsed ? (
+        {isShow ? (
           <>
             <Sider siderContent={siderContent} />
             <Footer />
@@ -70,7 +57,7 @@ const WebLayout: React.FC = () => {
         ) : null}
         <SiderTrigger></SiderTrigger>
       </Layout.Sider>
-      <Layout style={{ marginLeft: collapsed ? '300px' : '0', transition: 'all 0.3s' }}>
+      <Layout style={{ marginLeft: isShow ? '300px' : '0', transition: 'all 0.3s' }}>
         <Layout.Header className="web-header">
           <Header />
         </Layout.Header>

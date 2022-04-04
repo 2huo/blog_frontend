@@ -4,7 +4,7 @@ import userConfig from '@/public/config';
 import menuConfig from '@/public/menu';
 import './sider.css';
 interface ISiderProps {
-  siderContent?: JSX.Element | string;
+  siderContent?: JSX.Element | string | null;
 }
 
 const Sider: React.FC<ISiderProps> = (props) => {

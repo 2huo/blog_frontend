@@ -1,13 +1,14 @@
 import React from 'react';
 import { Empty } from 'antd';
-import useBus from '@/hooks/useBus';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSiderStatus, setTitle } from '@/store/page/actions';
 
 function _404(): JSX.Element {
-  const bus = useBus();
+  const dispatch = useDispatch();
   useEffect(() => {
-    bus.emit('siderShow', { show: false });
-    bus.emit('pageTitle', '404');
+    dispatch(setTitle({ title: '404' }));
+    dispatch(setSiderStatus({ isShow: false }));
   });
   return (
     <div>

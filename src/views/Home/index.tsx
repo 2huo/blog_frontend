@@ -1,19 +1,25 @@
-import useBus from '@/hooks/useBus';
 import React from 'react';
 import { useEffect } from 'react';
-import { GithubOutlined, MailOutlined, createFromIconfontCN, SmileOutlined } from '@ant-design/icons';
+import {
+  GithubOutlined,
+  MailOutlined,
+  createFromIconfontCN,
+  SmileOutlined,
+} from '@ant-design/icons';
 import userConfig from '@/public/config';
 import './home.css';
+import { useDispatch } from 'react-redux';
+import { setSiderStatus, setTitle } from '@/store/page/actions';
 
 const IconFont = createFromIconfontCN({
   scriptUrl: ['//at.alicdn.com/t/font_3026269_cadmlffp49.js'],
 });
 
 function Home(): JSX.Element {
-  const bus = useBus();
+  const dispatch = useDispatch();
   useEffect(() => {
-    bus.emit('pageTitle', 'Welcome');
-    bus.emit('siderShow', { show: false });
+    dispatch(setTitle({ title: 'Welcome' }));
+    dispatch(setSiderStatus({ isShow: false }));
   });
   return (
     <div className="flex flex-col justify-center items-center">

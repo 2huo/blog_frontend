@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import menuConfig from '@/public/menu';
 import userConfig from '@/public/config';
-import { useListener } from '@/hooks/useBus';
 import { MenuOutlined } from '@ant-design/icons';
 import { Dropdown, Menu } from 'antd';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const Header = (): JSX.Element => {
-  const [pageTitle, setPageTitle] = useState('HOME');
-  useListener<string>('pageTitle', (e) => {
-    setPageTitle(e);
-  });
+  const pageTitle = useSelector((state: RootState) => state.page.title);
 
   const DropMenu = (
     <Menu style={{ opacity: 0.7, width: '125px', float: 'right' }}>
@@ -30,7 +28,9 @@ const Header = (): JSX.Element => {
     <>
       <div className="flex px-4 sm:px-10 bg-white bg-opacity-70 z-20 absolute w-full top-0">
         <div className="justify-between flex lg:w-1/3">
-          <div className="text-black text-3xl self-center select-none whitespace-nowrap">{userConfig.blogBrand}</div>
+          <div className="text-black text-3xl self-center select-none whitespace-nowrap">
+            {userConfig.blogBrand}
+          </div>
           {/* <div className="justify-end text-sm text-gray-500 self-center">{myTalk}</div> */}
         </div>
         <ul className="hidden sm:flex flex-col sm:flex-row  flex-1 justify-end mb-0">

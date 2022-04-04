@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import MDRender from '@/components/MDRender';
 import query from '@/utils/query';
-import useBus from '@/hooks/useBus';
+import { useDispatch } from 'react-redux';
+import { setSiderStatus, setTitle } from '@/store/page/actions';
 
 function About(): JSX.Element {
   const [content, setContent] = useState('');
-  const bus = useBus();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     query.get('article/get_about').then((res) => {
       if (res.data.code === 'ok') {
         setContent(res.data.data);
-        bus.emit('siderShow', { show: false, content: null });
-        bus.emit('pageTitle', 'About Me');
+        dispatch(setSiderStatus({ isShow: false, sideContent: null }));
+        dispatch(setTitle({ title: 'About Me' }));
       }
     });
   }, []);

@@ -16,3 +16,5 @@ const initialState = {};
 const store = createStore(rootReducer, initialState, storeEnhancers);
 
 export default store;
+
+export type RootState = ReturnType<typeof rootReducer>;
