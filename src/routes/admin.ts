@@ -20,7 +20,7 @@ export default {
         {
           path: '/article/manageArticle',
           name: 'manageArticle',
-          component: lazy(() => import('@/components/admin/MDWriter')),
+          component: lazy(() => import('@/components/admin/ManageArticles')),
         },
       ],
     },

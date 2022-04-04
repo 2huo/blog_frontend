@@ -37,11 +37,20 @@ const AdminContent: React.FC = () => {
   };
 
   return (
-    <Layout>
-      <Layout.Sider width={siderWidth}>
+    <Layout hasSider>
+      <Layout.Sider
+        style={{
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: siderWidth,
+        }}
+      >
         <Menu
           onSelect={handleSelect}
-          style={{ width: siderWidth }}
           defaultSelectedKeys={defaultSelectedKeys}
           defaultOpenKeys={['article']}
           mode="inline"
@@ -58,13 +67,25 @@ const AdminContent: React.FC = () => {
             <Menu.Item key="newTopic" icon={<FolderAddOutlined />}>
               新建主题
             </Menu.Item>
+            <Menu.Item key="15">主题1</Menu.Item>
+            <Menu.Item key="26">主题2</Menu.Item>
+            <Menu.Item key="35">主题1</Menu.Item>
+            <Menu.Item key="46">主题2</Menu.Item>
+            <Menu.Item key="55">主题1</Menu.Item>
+            <Menu.Item key="66">主题2</Menu.Item>
+            <Menu.Item key="57">主题1</Menu.Item>
+            <Menu.Item key="68">主题2</Menu.Item>
+            <Menu.Item key="59">主题1</Menu.Item>
+            <Menu.Item key="60">主题2</Menu.Item>
+            <Menu.Item key="511">主题1</Menu.Item>
+            <Menu.Item key="623">主题2</Menu.Item>
           </SubMenu>
           <Menu.Item key="userInfo" icon={<SettingOutlined />} title="个人信息">
             个人信息
           </Menu.Item>
         </Menu>
       </Layout.Sider>
-      <Layout.Content style={{ minHeight: '100vh' }}>
+      <Layout.Content style={{ minHeight: '100vh', marginLeft: siderWidth }}>
         <Outlet></Outlet>
       </Layout.Content>
     </Layout>
