@@ -98,8 +98,11 @@ export default function MDRender(props: IMDRenderProps): JSX.Element {
                 return <h1 {...props}></h1>;
               },
               h2: ({ node, ...props }) => {
-                headers[headers.length - 1].push(getHeader(node));
-                return <h2 {...props}></h2>;
+                if (headers.length > 0) {
+                  headers[headers.length - 1 < 0 ? 0 : headers.length - 1].push(getHeader(node));
+                  return <h2 {...props}></h2>;
+                }
+                return null;
               },
             }}
           >
