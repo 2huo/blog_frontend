@@ -7,8 +7,9 @@
 - [x] 前台：主页 + 文章列表页
 - [x] 文章锚点导航、回到顶部、`markdown` 代码高亮
 - [x] 移动端适配
+- [x] 后台：文章管理
 - [ ] 前台：搜索页 + 主题页
-- [ ] 后台：文章管理 + 主题管理
+- [ ] 后台：主题管理
 - [ ] `md` 文件导入导出功能
 
 ### 技术栈
@@ -36,28 +37,13 @@
 │   │   ├── ...
 │   ├── components
 │   │   ├── MDRender // markdown渲染组件
-│   │   │   ├── highlight.css // 代码高亮
-│   │   │   ├── index.tsx
-│   │   │   └── markdown.css
 │   │   ├── admin
 │   │   └── web
-│   │       ├── Footer
-│   │       │   └── index.tsx
-│   │       ├── Header
-│   │       │   ├── header.css
-│   │       │   └── index.tsx
-│   │       └── Sider
-│   │           ├── index.tsx
-│   │           └── sider.css
-│   ├── hooks
-│   │   └── useBus.tsx
 │   ├── index.css
 │   ├── index.tsx
 │   ├── layout
 │   │   ├── admin
-│   │   │   └── index.tsx
 │   │   └── web
-│   │       └── index.tsx
 │   ├── public // 公共配置
 │   │   ├── config.ts
 │   │   └── menu.ts
@@ -67,26 +53,6 @@
 │   │   ├── index.ts
 │   │   └── web.ts
 │   ├── utils
-│   │   └── query.ts
-│   └── views // 页面
-│       ├── 404
-│       │   └── index.tsx
-│       ├── About
-│       │   └── index.tsx
-│       ├── Article // 文章详情页
-│       │   ├── article.css
-│       │   └── index.tsx
-│       ├── ArticleList // 文章列表页
-│       │   ├── Card.tsx
-│       │   ├── index.tsx
-│       │   └── types.ts
-│       ├── Home
-│       │   ├── home.css
-│       │   └── index.tsx
-│       ├── Topic // 主题详情页
-│       │   └── index.tsx
-│       └── TopicList // 主题列表页
-│           └── index.tsx
 ├── tailwind.config.js
 ├── tsconfig.json
 └── tsconfig.paths.json
