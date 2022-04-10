@@ -28,9 +28,19 @@ export default {
           component: lazy(() => import('@/components/admin/ManageArticles')),
         },
         {
+          path: '/topic/newTopic',
+          name: 'newTopic',
+          component: lazy(() => import('@/components/admin/NewTopic')),
+        },
+        {
           path: '/topic/:id',
           name: 'manageTopic',
           component: lazy(() => import('@/components/admin/ManageTopic')),
+        },
+        {
+          path: '/userSetting',
+          name: 'userSetting',
+          component: lazy(() => import('@/components/admin/UserSetting')),
         },
       ],
     },

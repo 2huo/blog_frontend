@@ -87,7 +87,7 @@ const AdminContent: React.FC = () => {
               新建主题
             </Menu.Item>
           </SubMenu>
-          <Menu.Item key="userInfo" icon={<SettingOutlined />} title="个人信息">
+          <Menu.Item key="userSetting" icon={<SettingOutlined />} title="个人信息">
             个人信息
           </Menu.Item>
         </Menu>
