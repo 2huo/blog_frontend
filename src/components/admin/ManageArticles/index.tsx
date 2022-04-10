@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import query from '@/utils/query';
 import { useState } from 'react';
-import { Tag, Button } from 'antd';
+import { Tag, Button, message } from 'antd';
 import { Link } from 'react-router-dom';
 
 export interface IArticle {
@@ -30,6 +30,22 @@ function ManageArticle(): JSX.Element {
     });
   }, []);
 
+  function delArticle(articleId: number) {
+    console.log(articleId);
+    query
+      .delete('admin/del_article', {
+        data: {
+          id: articleId,
+        },
+      })
+      .then((res) => {
+        if (res.data.code === 'ok') {
+          message.success('删除成功');
+          setArticleList(articleList.filter((article) => article.id != articleId));
+        }
+      });
+  }
+
   return (
     <div>
       {articleList.map((article) => {
@@ -38,7 +54,10 @@ function ManageArticle(): JSX.Element {
             key={'article-' + article.id}
             className="flex items-center border-b-2 p-4 mx-4 border-dashed"
           >
-            <Link to={''} className="text-black flex-1">
+            <Link
+              to={'/admin/content/article/writeArticle/' + article.id}
+              className="text-black flex-1"
+            >
               <div>
                 <div className=" text-3xl my-2">{article.title}</div>
                 <p>{article.article_desc}</p>
@@ -52,7 +71,7 @@ function ManageArticle(): JSX.Element {
                 </div>
               </div>
             </Link>
-            <Button type="primary" danger className="ml-10">
+            <Button type="primary" danger className="ml-10" onClick={() => delArticle(article.id)}>
               删除文章
             </Button>
           </div>

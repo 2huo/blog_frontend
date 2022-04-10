@@ -13,6 +13,11 @@ export default {
       component: lazy(() => import('@/layout/admin/AdminContent')),
       childRoutes: [
         {
+          path: '/article/writeArticle/:id',
+          name: 'writeArticle',
+          component: lazy(() => import('@/components/admin/MDWriter')),
+        },
+        {
           path: '/article/writeArticle',
           name: 'writeArticle',
           component: lazy(() => import('@/components/admin/MDWriter')),
@@ -21,6 +26,11 @@ export default {
           path: '/article/manageArticle',
           name: 'manageArticle',
           component: lazy(() => import('@/components/admin/ManageArticles')),
+        },
+        {
+          path: '/topic/:id',
+          name: 'manageTopic',
+          component: lazy(() => import('@/components/admin/ManageTopic')),
         },
       ],
     },

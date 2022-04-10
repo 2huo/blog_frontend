@@ -10,7 +10,6 @@ export interface IRoutes {
 }
 
 // 渲染路由
-// TODO:太过冗余，日后尝试改一下，使用v6版本的react-router-dom的renderRoutes应该会简便很多
 function renderRoutes(routes: IRoutes[], contextPath: string): React.ReactElement {
   const childrens: React.ReactElement[] = [];
   function renderRoute(item: IRoutes, routeContextPath: string) {

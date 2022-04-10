@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import MdEditor, { Plugins } from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { Button, Input, Select } from 'antd';
+import { useParams } from 'react-router-dom';
 const { Option } = Select;
 
 import query from '@/utils/query';
@@ -20,6 +21,7 @@ const MDWriter: React.FC = () => {
   const [canSelectTopics, setCanSelectTopics] = useState<JSX.Element[]>([]);
   const [selectTags, setSelectTags] = useState<string[]>([]);
   const [selectTopic, setSelectTopic] = useState<string>('');
+  const { id: articleId } = useParams();
 
   useEffect(() => {
     // 初始化标签
@@ -27,6 +29,7 @@ const MDWriter: React.FC = () => {
       if (res.data.code === 'ok') {
         const tags = res.data.data.tags;
         // console.log(tags);
+        canSelectTags.length = 0;
         tags.forEach((tag: { id: number; name: string }) => {
           canSelectTags.push(
             <Option key={`tagId-${tag.id}`} value={tag.name}>
@@ -40,11 +43,33 @@ const MDWriter: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (articleId) {
+      console.log(articleId);
+      query.get(`/article/get_article_content/${articleId}`).then((res) => {
+        if (res.data.code === 'ok') {
+          const data = res.data.data;
+          const articleContent = res.data.data.articleContent;
+          console.log(data);
+          setSelectTopic(data.TopicName);
+          setContent(articleContent.content);
+          setTitle(articleContent.title);
+          setSelectTags(
+            articleContent.Tags.map((tag) => {
+              return tag.name;
+            }),
+          );
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     // 初始化主题
     query.get('admin/topics').then((res) => {
       if (res.data.code === 'ok') {
         const { topics } = res.data.data;
         // console.log(topics);
+        canSelectTopics.length = 0;
         topics.forEach((topic: { id: number; name: string }) => {
           canSelectTopics.push(
             <Option key={`topicId-${topic.id}`} value={topic.name}>
@@ -62,12 +87,22 @@ const MDWriter: React.FC = () => {
   }
 
   function postArticle() {
-    query.post('admin/post_article/', {
-      content,
-      title,
-      tags: selectTags,
-      topic: selectTopic,
-    });
+    if (articleId) {
+      query.post('admin/edit_article/', {
+        content,
+        title,
+        tags: selectTags,
+        topic: selectTopic,
+        id: articleId,
+      });
+    } else {
+      query.post('admin/post_article/', {
+        content,
+        title,
+        tags: selectTags,
+        topic: selectTopic,
+      });
+    }
   }
 
   function handleSelectTag(value: string[]) {
@@ -106,13 +141,19 @@ const MDWriter: React.FC = () => {
             style={{ width: '100%' }}
             placeholder="请选择文章标签"
             onChange={handleSelectTag}
+            value={selectTags}
           >
             {canSelectTags}
           </Select>
         </div>
         <div className="flex items-center mx-4">
           <span>主题：</span>
-          <Select style={{ width: 200 }} placeholder="文章所属主题" onChange={handleSelectTopic}>
+          <Select
+            style={{ width: 200 }}
+            placeholder="文章所属主题"
+            onChange={handleSelectTopic}
+            value={selectTopic}
+          >
             {canSelectTopics}
           </Select>
         </div>
@@ -123,6 +164,7 @@ const MDWriter: React.FC = () => {
         onChange={handleEditorChange}
         htmlClass="articleDetail"
         shortcuts={true}
+        value={content}
       />
     </div>
   );

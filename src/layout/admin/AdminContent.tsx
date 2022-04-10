@@ -1,5 +1,5 @@
 import { Layout, Menu } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { useNavigate, Outlet } from 'react-router-dom';
@@ -12,8 +12,16 @@ import {
 } from '@ant-design/icons';
 const { SubMenu } = Menu;
 
+import query from '@/utils/query';
+
+interface Topic {
+  id: number;
+  name: string;
+}
+
 const AdminContent: React.FC = () => {
   const role = useSelector((state: RootState) => state.user.role);
+  const [topics, setTopics] = useState<Topic[]>([]);
   const navigate = useNavigate();
   const siderWidth = 200;
   const defaultSelectedKeys = ['manageArticle', 'article'];
@@ -35,6 +43,16 @@ const AdminContent: React.FC = () => {
     }, '');
     navigate(`.${path}`);
   };
+
+  useEffect(() => {
+    query.get('/admin/topics').then((res) => {
+      console.log(res);
+      if (res.data.code === 'ok') {
+        const topics = res.data.data.topics;
+        setTopics(topics);
+      }
+    });
+  }, []);
 
   return (
     <Layout hasSider>
@@ -62,23 +80,12 @@ const AdminContent: React.FC = () => {
             </Menu.Item>
           </SubMenu>
           <SubMenu key="topic" icon={<FolderOutlined />} title="主题">
-            <Menu.Item key="5">主题1</Menu.Item>
-            <Menu.Item key="6">主题2</Menu.Item>
+            {topics.map((topic) => {
+              return <Menu.Item key={topic.id}>{topic.name}</Menu.Item>;
+            })}
             <Menu.Item key="newTopic" icon={<FolderAddOutlined />}>
               新建主题
             </Menu.Item>
-            <Menu.Item key="15">主题1</Menu.Item>
-            <Menu.Item key="26">主题2</Menu.Item>
-            <Menu.Item key="35">主题1</Menu.Item>
-            <Menu.Item key="46">主题2</Menu.Item>
-            <Menu.Item key="55">主题1</Menu.Item>
-            <Menu.Item key="66">主题2</Menu.Item>
-            <Menu.Item key="57">主题1</Menu.Item>
-            <Menu.Item key="68">主题2</Menu.Item>
-            <Menu.Item key="59">主题1</Menu.Item>
-            <Menu.Item key="60">主题2</Menu.Item>
-            <Menu.Item key="511">主题1</Menu.Item>
-            <Menu.Item key="623">主题2</Menu.Item>
           </SubMenu>
           <Menu.Item key="userInfo" icon={<SettingOutlined />} title="个人信息">
             个人信息
