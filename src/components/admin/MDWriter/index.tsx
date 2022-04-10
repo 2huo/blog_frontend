@@ -98,7 +98,7 @@ const MDWriter: React.FC = () => {
         id: articleId,
       };
     } else {
-      url = 'admin/edit_article';
+      url = 'admin/post_article';
       config = {
         content,
         title,
