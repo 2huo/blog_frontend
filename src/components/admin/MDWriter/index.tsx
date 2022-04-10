@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import MdEditor, { Plugins } from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-import { Button, Input, Select } from 'antd';
-import { useParams } from 'react-router-dom';
+import { Button, Input, message, Select } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
 const { Option } = Select;
 
 import query from '@/utils/query';
@@ -22,6 +22,7 @@ const MDWriter: React.FC = () => {
   const [selectTags, setSelectTags] = useState<string[]>([]);
   const [selectTopic, setSelectTopic] = useState<string>('');
   const { id: articleId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 初始化标签
@@ -48,13 +49,11 @@ const MDWriter: React.FC = () => {
       query.get(`/article/get_article_content/${articleId}`).then((res) => {
         if (res.data.code === 'ok') {
           const data = res.data.data;
-          const articleContent = res.data.data.articleContent;
-          console.log(data);
           setSelectTopic(data.TopicName);
-          setContent(articleContent.content);
-          setTitle(articleContent.title);
+          setContent(data.content);
+          setTitle(data.title);
           setSelectTags(
-            articleContent.Tags.map((tag) => {
+            data.Tags.map((tag) => {
               return tag.name;
             }),
           );
@@ -87,22 +86,33 @@ const MDWriter: React.FC = () => {
   }
 
   function postArticle() {
+    let url = '';
+    let config = {};
     if (articleId) {
-      query.post('admin/edit_article/', {
+      url = 'admin/edit_article/';
+      config = {
         content,
         title,
         tags: selectTags,
         topic: selectTopic,
         id: articleId,
-      });
+      };
     } else {
-      query.post('admin/post_article/', {
+      url = 'admin/edit_article';
+      config = {
         content,
         title,
         tags: selectTags,
         topic: selectTopic,
-      });
+      };
     }
+    query.post(url, config).then((res) => {
+      console.log(res);
+      if (res.data.code === 'ok') {
+        message.success('发布成功');
+        navigate('/admin/content/article/manageArticle');
+      }
+    });
   }
 
   function handleSelectTag(value: string[]) {
