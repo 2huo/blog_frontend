@@ -143,7 +143,7 @@ const MDWriter: React.FC = () => {
       </div>
       <div className="flex my-2">
         <div className="flex flex-1 items-center ml-4">
-          <span>tags：</span>
+          <span>标签：</span>
           <Select
             className="flex-1"
             mode="tags"
