@@ -42,7 +42,7 @@ service.interceptors.response.use(
   },
   (error) => {
     // console.log('error', error.response.status);
-    const status = error.response.status;
+    const status = error.response?.status;
     if (status === 401) {
       remove('role');
       remove('token');
