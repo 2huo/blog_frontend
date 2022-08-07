@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import MDRender from '@/components/MDRender';
-import { Breadcrumb, Skeleton } from 'antd';
+import {Breadcrumb, Skeleton} from 'antd';
 // import { FolderOpenOutlined } from '@ant-design/icons';
 import query from '@/utils/query';
 import './article.css';
-import { useDispatch } from 'react-redux';
-import { setSiderStatus, setTitle as dispatch_setTitle } from '@/store/page/actions';
+import {useDispatch} from 'react-redux';
+import {setSiderStatus, setTitle as dispatch_setTitle} from '@/store/page/actions';
 
 const Article: React.FC = () => {
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
-  const { id: articleId } = useParams();
+  const {id: articleId} = useParams();
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ const Article: React.FC = () => {
         const data = res.data.code === 'ok' ? res.data.data : null;
         data ? (setContent(data.content), setTitle(data.title)) : null;
         setLoading(false);
-        dispatch(dispatch_setTitle({ title: data.title }));
+        dispatch(dispatch_setTitle({title: data.title}));
         document.title = data.title;
       })
       .catch(() => {
@@ -34,7 +34,7 @@ const Article: React.FC = () => {
   }, [articleId]);
 
   const getToc = (content: JSX.Element) => {
-    dispatch(setSiderStatus({ isShow: true, sideContent: content }));
+    dispatch(setSiderStatus({isShow: true, sideContent: content}));
   };
 
   return (
@@ -57,13 +57,14 @@ const Article: React.FC = () => {
           </Link>
         </Breadcrumb.Item>
       </Breadcrumb>
-      <br />
+      <br/>
       <Skeleton loading={loading} active>
         <MDRender content={content} getToc={getToc}></MDRender>
       </Skeleton>
       <div className={"p-4 mb-20"}>
-        转载请注明出处: {document.location.host+document.location.pathname}
-        <br />
+        转载请注明出处: <a
+        href={"https://" + document.location.host + document.location.pathname}>https://{document.location.host + document.location.pathname}</a>
+        <br/>
         如发现文章有错误、对内容有疑问，请邮件联系我：maipianlaoxu@gmail.com
       </div>
     </div>
