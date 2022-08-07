@@ -25,6 +25,7 @@ const Article: React.FC = () => {
         data ? (setContent(data.content), setTitle(data.title)) : null;
         setLoading(false);
         dispatch(dispatch_setTitle({ title: data.title }));
+        document.title = data.title;
       })
       .catch(() => {
         setLoading(false);
