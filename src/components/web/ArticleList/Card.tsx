@@ -2,7 +2,7 @@ import React from 'react';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { Tag } from 'antd';
 import { Link } from 'react-router-dom';
-import MDRender from '@/components/MDRender';
+// import MDRender from '@/components/MDRender';
 export interface IArticle {
   id: number;
   title: string;
@@ -38,9 +38,9 @@ const Card: React.FC<IArticle> = (props) => {
           </Tag>
         ))}
       </div>
-      <div className="text-gray-500">
+      {/* <div className="text-gray-500">
         <MDRender content={props.article_desc}></MDRender>
-      </div>
+      </div> */}
     </div>
   );
 };
