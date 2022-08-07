@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import MDRender from '@/components/MDRender';
 import { Breadcrumb, Skeleton } from 'antd';
-import { FolderOpenOutlined } from '@ant-design/icons';
+// import { FolderOpenOutlined } from '@ant-design/icons';
 import query from '@/utils/query';
 import './article.css';
 import { useDispatch } from 'react-redux';
@@ -42,13 +42,13 @@ const Article: React.FC = () => {
       <Breadcrumb>
         <Breadcrumb.Item>
           <Link to="/">
-            <span className=" ml-1">Home</span>
+            <span className=" ml-1">主页</span>
           </Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
           <Link to="/article_list">
-            <FolderOpenOutlined />
-            <span className="ml-1">articleList</span>
+            {/*<FolderOpenOutlined />*/}
+            <span className="ml-1">文章列表</span>
           </Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
@@ -61,6 +61,11 @@ const Article: React.FC = () => {
       <Skeleton loading={loading} active>
         <MDRender content={content} getToc={getToc}></MDRender>
       </Skeleton>
+      <div className={"p-4 mb-20"}>
+        转载请注明出处: {document.location.host+document.location.pathname}
+        <br />
+        如发现文章有错误、对内容有疑问，请邮件联系我：maipianlaoxu@gmail.com
+      </div>
     </div>
   );
 };

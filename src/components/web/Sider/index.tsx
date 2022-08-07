@@ -10,10 +10,10 @@ interface ISiderProps {
 const Sider: React.FC<ISiderProps> = (props) => {
   return (
     <div className="flex flex-col justify-center items-center">
-      <Link to="/about" className="text-center">
-        <img className="mt-10 w-32 h-32 " src={userConfig.avatar} alt="avatar" />
-        <div className=" mt-5 text-4xl text-black">{userConfig.authorName}</div>
-      </Link>
+      {/*<Link to="/about" className="text-center">*/}
+      <img className="mt-10 w-32 h-32 " src={userConfig.avatar} alt="avatar" />
+      <div className="mt-5 text-2xl text-black">下面是目录</div>
+      {/*</Link>*/}
       <div className="mt-5">
         {props.siderContent ? (
           <div>{props.siderContent}</div>
