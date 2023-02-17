@@ -5,7 +5,8 @@ import { get, remove, save } from '@/utils/storage';
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'https://api.2huo.tech',
+  baseURL: 'https://api.2huo.tech/blog',
+  // baseURL: 'http://119.91.158.120:9809',
   // baseURL: 'http://localhost:3001',
   timeout: 15000, // 请求超时时间
 });
