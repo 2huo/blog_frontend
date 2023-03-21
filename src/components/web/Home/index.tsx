@@ -10,6 +10,7 @@ import userConfig from '@/public/config';
 import './home.css';
 import {useDispatch} from 'react-redux';
 import {setSiderStatus, setTitle} from '@/store/page/actions';
+import Footer from '../Footer';
 
 const IconFont = createFromIconfontCN({
   scriptUrl: ['//at.alicdn.com/t/font_3026269_cadmlffp49.js'],
@@ -24,10 +25,10 @@ function Home(): JSX.Element {
   return (
     <div className="flex flex-col justify-center items-center">
       <h2 className=" text-xl sm:text-3xl text-black mt-10 flex items-center">
-        <span className="mr-4">你好👋，朋友</span>
+        <span className="mr-4">👋 你好，朋友</span>
         <SmileOutlined/>
       </h2>
-      <h2 className="text-xl sm:text-3xl text-gray-400 mt-5">Hello, My friend</h2>
+      {/* <h2 className="text-xl sm:text-3xl text-gray-400 mt-5">Hello, My friend</h2> */}
       <div className="links">
         <a href={userConfig.github} target="_blank" rel="noopener noreferrer">
           <GithubOutlined/>
@@ -39,6 +40,7 @@ function Home(): JSX.Element {
           <MailOutlined/>
         </a>
       </div>
+      <Footer></Footer>
     </div>
   );
 }

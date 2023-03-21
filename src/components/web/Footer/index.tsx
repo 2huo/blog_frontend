@@ -12,7 +12,7 @@ const Footer = (): JSX.Element => {
         粤ICP备2021021459号-1
       </a>
       <span className="">POWER BY LAOXU</span>
-      <span className="">All rights reserved.</span>
+      {/* <span className="">All rights reserved.</span> */}
     </div>
   );
 };

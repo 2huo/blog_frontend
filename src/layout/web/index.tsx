@@ -52,7 +52,7 @@ const WebLayout: React.FC = () => {
         {isShow ? (
           <>
             <Sider siderContent={siderContent} />
-            <Footer />
+            {/* <Footer /> */}
           </>
         ) : null}
         <SiderTrigger></SiderTrigger>
