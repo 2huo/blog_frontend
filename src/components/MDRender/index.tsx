@@ -100,9 +100,9 @@ export default function MDRender(props: IMDRenderProps): JSX.Element {
               h2: ({ node, ...props }) => {
                 if (headers.length > 0) {
                   headers[headers.length - 1 < 0 ? 0 : headers.length - 1].push(getHeader(node));
-                  return <h2 {...props}></h2>;
                 }
-                return null;
+                // headers[headers.length <= 0 ? 0 : headers.length - 1].push(getHeader(node));
+                return <h2 {...props}></h2>;
               },
             }}
           >
