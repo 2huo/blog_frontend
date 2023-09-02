@@ -1,0 +1,9 @@
+version: "3"
+services:
+  simple:
+    image: 13682704954/blog_frontend:latest
+    build:
+      context: .
+      dockerfile: simple.Dockerfile
+    ports:
+      - 4000:80
